@@ -1,0 +1,1154 @@
+[custom_form type="investor" form_id="102"]
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<style>
+    .error {
+        color: red;
+    }
+</style>
+<div id="step1" class="form-step">
+    <div class="p-4 border rounded">
+        <div class="mb-3">
+            <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name">
+            <span id="first_nameError" class="error"></span><br>
+        </div>
+        <div class="mb-3">
+            <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name">
+            <span id="last_nameError" class="error"></span><br>
+        </div>
+        <div class="mb-3">
+            <input type="email" id="email" name="email" class="form-control" placeholder="Email">
+            <span id="emailError" class="error"></span><br>
+        </div>
+        <div class="mb-3">
+            <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone">
+            <span id="phoneError" class="error"></span><br>
+        </div>
+        <button type="button" id="continueToStep2" class="btn btn-outline-primary">Continue</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</div>
+
+<div id="step2" class="form-step" style="display:none;">
+    <div class="container">
+        <h2>Profile Information</h2>
+        <div class="mb-4">
+            <!-- Salutation Field -->
+            <div class="mb-3">
+                <label for="user-salutation" class="form-label">Salutation <span class="text-danger">*</span></label>
+                <select id="user-salutation" name="salutation" class="form-select">
+                    <option value="">Choose</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Miss">Miss</option>
+                    <option value="Dr.">Dr.</option>
+                </select>
+                <span id="salutation_Error" class="error text-danger"></span><br>
+            </div>
+
+            <!-- Family Name Field -->
+            <div class="mb-3">
+                <label for="familyName_new" class="form-label">Family Name <span class="text-danger">*</span></label>
+                <input type="text" id="familyName_new" name="familyName_new" class="form-control"
+                    placeholder="Enter your answer here...">
+                <span id="familyName_error" class="error text-danger"></span><br>
+            </div>
+
+            <!-- Given Name Field -->
+            <div class="mb-3">
+                <label for="givenName_new" class="form-label">Given Name(s) <span class="text-danger">*</span></label>
+                <input type="text" id="givenName_new" name="givenName_new" class="form-control"
+                    placeholder="Enter your answer here...">
+                <span id="givenName_error" class="error text-danger"></span><br>
+            </div>
+
+            <!-- Date of Birth Field -->
+            <div class="mb-3">
+                <label for="dateOfBirth_new" class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                <input type="date" id="dateOfBirth_new" name="dateOfBirth_new" class="form-control">
+                <span id="dateOfBirth_error" class="error text-danger"></span><br>
+            </div>
+
+            <!-- Gender Field -->
+            <div class="mb-4">
+                <label for="genderCategory" class="form-label">Gender<span class="text-danger">*</span></label>
+                <div class="mb-4">
+                    <input type="radio" name="genderCategory" id="gender_male" value="Male">
+                    <label class="user-control-value" for="gender_male">Male (M)</label>
+                </div>
+                <div class="mb-4">
+                    <input type="radio" name="genderCategory" id="gender_female" value="Female">
+                    <label class="user-control-value" for="gender_female">Female (F)</label>
+                </div>
+                <div class="mb-4">
+                    <input type="radio" name="genderCategory" id="gender_other" value="Other">
+                    <label class="user-control-value" for="gender_other">X (Another Gender)</label>
+                </div>
+                <span id="genderError" class="error text-danger"></span><br>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="citizenshipSelect" class="form-label">Country of Citizenship <span
+                        class="text-danger">*</span></label>
+                <select id="citizenshipSelect" name="citizenship" class="form-select">
+                    <option value="">Choose</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Aland Island">Aland Island</option>
+                </select>
+                <span id="citizenshipSelect_error" class="error text-danger"></span><br>
+            </div>
+
+            <!-- Country of Residence Field -->
+            <div class="mb-4">
+                <label for="residenceSelect" class="form-label">Country of Residence <span
+                        class="text-danger">*</span></label>
+                <select id="residenceSelect" name="countryOfResidence" class="form-select">
+                    <option value="">Choose</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Aland Island">Aland Island</option>
+                </select>
+                <span id="residenceSelect_error" class="error text-danger"></span><br>
+            </div>
+
+            <!-- Current Address Field -->
+            <div class="mb-4">
+                <label for="addressCurrent" class="form-label">Current Address <span
+                        class="text-danger">*</span></label>
+                <textarea id="addressCurrent" name="currentAddress" class="form-control"
+                    placeholder="Include: Street#, Street Name, City, Province/State/District, Country, Postal Code"
+                    rows="3"></textarea>
+                <span id="addressCurrent_error" class="error text-danger"></span><br>
+            </div>
+
+
+            <div class="mb-4">
+                <label for="primaryLanguage" class="form-label">Primary Language Spoken <span
+                        class="text-danger">*</span></label>
+                <select id="primaryLanguage" name="primaryLanguage" class="form-select" onchange="hideNativeLanguage()">
+                    <option value="">Choose</option>
+                    <option value="English">English</option>
+                    <option value="French">French</option>
+                    <option value="Other">Other</option>
+                </select>
+                <span id="primaryLanguage_error" class="error"></span><br>
+            </div>
+
+            <div id="native">
+                <div class="mb-4">
+                    <label for="nativeLanguage" class="form-label">Choose your Native language (if 'Other' was
+                        selected in the previous question)</label>
+                    <select id="nativeLanguage" name="nativeLanguage" class="form-select">
+                        <option value="">Choose</option>
+                        <option value="Ada">Ada</option>
+
+                    </select>
+                    <span id="nativeLanguage_error" class="error"></span><br>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label for="preferredLanguage" class="form-label">What's your preferred language for email/chat
+                    messages? <span class="text-danger">*</span></label>
+                <select id="preferredLanguage" name="preferredLanguage" class="form-select">
+                    <option value="">Choose</option>
+                    <option value="English">English</option>
+                    <option value="French">French</option>
+
+                </select>
+                <span id="preferredLanguage_error" class="error"></span><br>
+            </div>
+
+            <div class="mb-4">
+                <label for="sourceOfHearing" class="form-label">How did you hear about us? <span
+                        class="text-danger">*</span></label>
+                <select id="sourceOfHearing" name="sourceOfHearing" class="form-select" onchange="howhearAboutUs()">
+                    <option value="">Choose</option>
+                    <option value="Agent">Agent</option>
+                    <option value="Client">Client</option>
+                    <option value="Google">Google</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Friend">Friend</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="Yahoo">Yahoo</option>
+                    <option value="Other">Other</option>
+                </select>
+                <span id="sourceOfHearing_error" class="error"></span><br>
+            </div>
+
+            <!-- condition -->
+
+            <div class="mb-4" id="referralInfoDiv">
+                <label for="referralInfo" class="form-label">Referral Name/Code</label>
+                <input type="text" id="referralInfo" name="referralInfo" class="form-control"
+                    placeholder="Enter your answer here...">
+                <span id="referralInfo_error" class="error"></span><br>
+            </div>
+
+
+            <!-- Select Box for Marital Status -->
+            <div class="mb-4">
+                <label for="maritalStatus" class="form-label">What is your marital status? <span
+                        class="text-danger">*</span></label>
+                <select id="maritalStatus" name="maritalStatus" class="form-select"
+                    onchange="showAdditionalQuestions(this)">
+                    <option value="Choose">Choose</option>
+                    <option value="Annulled Marriage">Annulled Marriage</option>
+                    <option value="Common-Law">Common-Law</option>
+                    <option value="Divorced">Divorced</option>
+                    <option value="Legally Separated">Legally Separated</option>
+                    <option value="Married">Married</option>
+                    <option value="Never Married">Never Married</option>
+                    <option value="Widowed">Widowed</option>
+                </select>
+                <span id="maritalStatus_error" class="error"></span><br>
+            </div>
+
+            <!-- Common-Law/Married Divs -->
+            <div class="mb-4" id="maritalSinceDiv" style="display: none;">
+                <label for="maritalSince" class="form-label">Married/Common-Law since? <span
+                        class="text-danger">*</span></label>
+                <input type="date" id="maritalSince" name="maritalSince" class="form-control">
+                <span id="maritalSinceDiv_error" class="error"></span><br>
+            </div>
+
+            <div class="mb-4" id="spouseCitizenDiv" style="display: none;">
+                <label for="spouseStatus" class="form-label">Is your spouse or common-law partner a citizen or permanent
+                    resident of Canada? <span class="text-danger">*</span></label>
+                <select id="spouseStatus" name="spouseStatus" class="form-select">
+                    <option value="">Choose</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <span id="spouseStatus_error" class="error"></span><br>
+            </div>
+
+            <div class="mb-4" id="spouseAccompanyDiv" style="display: none;">
+                <label for="spouseAccompany" class="form-label">Will your spouse or common-law partner come with you to
+                    Canada? <span class="text-danger">*</span></label>
+                <select id="spouseAccompany" name="spouseAccompany" class="form-select" onchange="spouseAccompanyDiv()">
+                    <option value="">Choose</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <span id="spouseAccompany_error" class="error"></span><br>
+            </div>
+
+            <!-- Additional Questions Div . spouseAccompany if select No display additionalQuestions -->
+            <div id="additionalQuestions" style="display: none;">
+                <div class="mb-4">
+                    <label for="preferredDestination" class="form-label">Where is your preferred destination in Canada?
+                        <span class="text-danger">*</span></label>
+                    <select id="preferredDestination" name="preferredDestination" class="form-select">
+                        <option value="">Choose</option>
+                        <option value="Any">Any</option>
+                        <option value="Alberta (AB)">Alberta (AB)</option>
+                        <option value="British Columbia (BC)">British Columbia (BC)</option>
+                        <!-- More options... -->
+                    </select>
+                    <span id="preferredDestination_error" class="error"></span><br>
+                </div>
+                <!-- More questions... -->
+            </div>
+            <!-- spouseAccompany if select yes display Education_Details -->
+            <div id="Education_Details" style="display: none;">
+                <div id="additionalQuestions">
+                    <div id="additionalQuestionsContainer1">
+                        <div class="additionalQuestions1" style="margin-bottom: 8px; position: relative;">
+                            <div class="mb-4">
+                                <p
+                                    style="background-color: #007bff; color: #ffffff; font-size: 18px; padding: 10px;">
+                                    Education Details - Primary Applicant
+                                </p>
+                            </div>
+                            <div class="mb-4">
+                                <label for="education_level" class="form-label">Education Level <span
+                                        class="text-danger">*</span></label>
+                                <select id="education_level" class="form-select" onchange="checkRules(this)">
+                                    <option value="">Choose</option>
+                                    <option value="Below High School">Below High School</option>
+                                    <option value="High School">High School</option>
+                                    <option value="Non-trades Certificate/Diploma">Non-trades Certificate/Diploma
+                                    </option>
+                                    <option value="Associate Degree">Associate Degree</option>
+                                    <option value="Trade Certificate">Trade Certificate</option>
+                                    <option value="Bachelor’s Degree">Bachelor’s Degree</option>
+                                    <option value="Post Graduate Certificate or Post Graduate Diploma">Post Graduate
+                                        Certificate
+                                        or Post Graduate Diploma</option>
+                                    <option value="Master’s or Professional Degree to Practice">Master’s or
+                                        Professional
+                                        Degree
+                                        to Practice</option>
+                                    <option value="Ph.D./ Doctoral Certificate">Ph.D./ Doctoral Certificate</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="fieldOfStudy" class="form-label">Field of Study <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="fieldOfStudy" class="form-control"
+                                    placeholder="Enter your answer here...">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="schoolName" class="form-label">Name of School/Institution <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="schoolName" class="form-control"
+                                    placeholder="Enter your answer here...">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="studyDuration" class="form-label">Duration of Study in years <span
+                                        class="text-danger">*</span></label>
+                                <select id="studyDuration" class="form-select" onchange="checkRules(this)">
+                                    <option value="">Choose</option>
+                                    <option value="Less than 12 months">Less than 12 months</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10+">10+</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="country" class="form-label">Country <span
+                                        class="text-danger">*</span></label>
+                                <select id="country" class="form-select" onchange="checkRules(this)">
+                                    <option value="">Choose</option>
+                                    <option value="Afghanistan">Afghanistan</option>
+                                    <option value="Aland Island">Aland Island</option>
+                                    <option value="Albania">Albania</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                            <!-- Add More Button -->
+                            <div style="text-align: right;">
+                                <button type="button" class="btn btn-primary addMore">Add More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divs to Hide/Show -->
+            <div id="visitingQuestions" style="display: none;">
+                <div class="mb-4">
+                    <label for="previousVisit" class="form-label">Have you or your spouse(if applicable) ever been
+                        refused for any type of application for any country or any province?
+                        <span class="text-danger">*</span></label>
+                    <select id="previousVisit" name="previousVisit" class="form-select">
+                        <option value="">Choose</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                    <span id="previousVisit_error" class="error"></span><br>
+                </div>
+                <div class="mb-4">
+                    <label for="firstVisit" class="form-label"> Have you or your spouse ever been arrested, detained,
+                        charged or convicted in any country in past? <span class="text-danger">*</span></label>
+                    <select id="firstVisit" name="firstVisit" class="form-select">
+                        <option value="">Choose</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                    <span id="firstVisit_error" class="error"></span><br>
+                </div>
+                <div class="mb-4">
+                    <label for="entryStatus" class="form-label">Have you or your spouse previously applied for
+                        immigration or visa to Canada? <span class="text-danger">*</span></label>
+                    <select id="entryStatus" name="entryStatus" class="form-select" onchange="toggleLanguageExam()">
+                        <option value="">Choose</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                    <span id="entryStatus_error" class="error"></span><br>
+                </div>
+            </div>
+
+
+            <!-- condition -->
+            <div class="container" id="Language_Exam" style="display: none;">
+                <h2> Confirmation - Language Exam </h2>
+                <div class="container">
+                    <div class="mb-4">
+                        <label for="testAgencySelect" class="form-label">
+                            Have you taken a test from a designated testing agency to assess your proficiency in English
+                            or
+                            French? <span class="text-danger">*</span>
+                        </label><br>
+                        <select id="testAgencySelect" name="testAgency" class="form-select">
+                            <option value="">Choose</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <span id="testAgencySelect_error" class="error"></span><br>
+                    </div>
+                    <!--Extra text will be added by condition -->
+                    <div id="step_2_input" class="ext_input_block"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="button" id="previousToStep1" class="btn btn-outline-dark">Previous</button>
+            <button type="button" id="continueToStep3" class="btn btn-outline-primary">Continue</button>
+        </div>
+    </div>
+</div>
+
+<div id="step3" class="form-step" style="display:none;">
+
+    <div class="container">
+        <div id="step_2_ext_input" class="ext_input_block"></div>
+        <h2>Additional Information</h2>
+        <div class="d-flex justify-content-between">
+            <button type="button" id="previousToStep2" class="btn btn-outline-dark">Previous</button>
+            <button type="button" id="submitForm" class="btn btn-primary">Submit</button>
+        </div>
+        <div id="waitMessage" class="text-info mt-2" style="display: none;">Please wait...</div>
+        <div id="successMessage" class="text-success mt-2" style="display: none;">Mail sent successfully.</div>
+    </div>
+</div>
+<!-- condition add extra content -->
+<!-- -------------------------- -->
+<div id="step2_input_step2_extra_input" style="display:none;">
+    <div id="Language_Results">
+        <!-- Conditional if yes -->
+        <div class="container">
+            <h2>Language Results</h2>
+
+            <div class="mb-3">
+                <label for="languageTestSelect" class="form-label">Which language test did you take for
+                    your
+                    first
+                    official language? <span class="text-danger">*</span></label><br>
+                <select id="languageTestSelect" name="languageTest" class="form-select" required>
+                    <option value="">Choose</option>
+                    <option value="IELTS">IELTS</option>
+                    <option value="CELPIP">CELPIP</option>
+                    <option value="TEF">TEF</option>
+                    <option value="TCF">TCF</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="examDate" class="form-label">Exam results date? <span class="text-danger">*</span></label>
+            <p>Place the 1st of the month if you don't remember the exact date, e.g., 2021-04-01</p><br>
+            <input type="date" id="examDate" name="examDate" class="form-control">
+            <span id="examDate_error" class="error"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="speaking" class="form-label">Speaking <span class="text-danger">*</span></label><br>
+            <select id="speaking" name="speaking" class="form-select" required>
+                <option value="">Choose</option>
+                <option value="CLB 10 or more">Expert - (CLB 10 or more)</option>
+                <option value="CLB 9">Very good - (CLB 9)</option>
+                <option value="CLB 8">Good - (CLB 8)</option>
+                <option value="CLB 7">Competent - (CLB 7)</option>
+                <option value="CLB 6">Modest - (CLB 6)</option>
+                <option value="CLB 5">Limited - (CLB 5)</option>
+                <option value="CLB 4">Very Limited - (CLB 4)</option>
+                <option value="Less than CLB 4">None at all - (Less than CLB 4)</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="listening" class="form-label">Listening <span class="text-danger">*</span></label><br>
+            <select id="listening" name="listening" class="form-select" required>
+                <option value="">Choose</option>
+                <option value="CLB 10 or more">Expert (CLB 10 or more)</option>
+                <option value="CLB 9">Very Good (CLB 9)</option>
+                <option value="CLB 8">Good (CLB 8)</option>
+                <option value="CLB 7">Competent (CLB 7)</option>
+                <option value="CLB 6">Modest (CLB 6)</option>
+                <option value="CLB 5">Limited (CLB 5)</option>
+                <option value="CLB 4">Very Limited (CLB 4)</option>
+                <option value="Less than CLB 4">None at All (Less than CLB 4)</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="reading" class="form-label">Reading <span class="text-danger">*</span></label><br>
+            <select id="reading" name="reading" class="form-select" required>
+                <option value="">Choose</option>
+                <option value="CLB 10 or more">Expert - (CLB 10 or more)</option>
+                <option value="CLB 9">Very good - (CLB 9)</option>
+                <option value="CLB 8">Good - (CLB 8)</option>
+                <option value="CLB 7">Competent - (CLB 7)</option>
+                <option value="CLB 6">Modest - (CLB 6)</option>
+                <option value="CLB 5">Limited - (CLB 5)</option>
+                <option value="CLB 4">Very Limited - (CLB 4)</option>
+                <option value="Less than CLB 4">None at all - (Less than CLB 4)</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="writing" class="form-label">Writing <span class="text-danger">*</span></label><br>
+            <select id="writing" name="writing" class="form-select" required>
+                <option value="" disabled selected>Choose</option>
+                <option value="CLB 10 or more">Expert (CLB 10 or more)</option>
+                <option value="CLB 9">Very Good (CLB 9)</option>
+                <option value="CLB 8">Good (CLB 8)</option>
+                <option value="CLB 7">Competent (CLB 7)</option>
+                <option value="CLB 6">Modest (CLB 6)</option>
+                <option value="CLB 5">Limited (CLB 5)</option>
+                <option value="CLB 4">Very Limited (CLB 4)</option>
+                <option value="Less than CLB 4">None at All (Less than CLB 4)</option>
+            </select>
+        </div>
+
+
+        <div class="mb-4">
+            <label for="languageResultsSelect" class="form-label">Do you have other language results?
+                <span class="text-danger">*</span></label><br>
+            <select id="languageResultsSelect" name="languageResults" class="form-select"
+                onchange="toggleLanguageResults()">
+                <option value="">Choose</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+            <span id="languageResultsSelect_error" class="error"></span><br>
+        </div>
+    </div>
+
+    <!-- Conditional if yes -->
+    <div id="Other_Language_Results" style="display: none;">
+        <div class="container">
+            <h2>Other Language Results</h2>
+
+            <div class="mb-3">
+                <label for="firstLanguageTest" class="form-label">Which language test did you take for
+                    your
+                    first official language? <span class="text-danger">*</span></label><br>
+                <select id="firstLanguageTest" name="languageTest" class="form-select" required>
+                    <option value="">Choose</option>
+                    <option value="IELTS">IELTS</option>
+                    <option value="CELPIP">CELPIP</option>
+                    <option value="TEF">TEF</option>
+                    <option value="TCF">TCF</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="examResultsDate" class="form-label">Exam results date? <span
+                        class="text-danger">*</span></label>
+                <p>Place the 1st of the month if you don't remember the exact date, e.g., 2021-04-01</p>
+                <br>
+                <input type="date" id="examResultsDate" name="examDate" class="form-control">
+                <span id="examResultsDate_error" class="error"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="speakingLevel" class="form-label">Speaking <span class="text-danger">*</span></label><br>
+                <select id="speakingLevel" name="speaking" class="form-select" required>
+                    <option value="">Choose</option>
+                    <option value="CLB 10 or more">Expert - (CLB 10 or more)</option>
+                    <option value="CLB 9">Very good - (CLB 9)</option>
+                    <option value="CLB 8">Good - (CLB 8)</option>
+                    <option value="CLB 7">Competent - (CLB 7)</option>
+                    <option value="CLB 6">Modest - (CLB 6)</option>
+                    <option value="CLB 5">Limited - (CLB 5)</option>
+                    <option value="CLB 4">Very Limited - (CLB 4)</option>
+                    <option value="Less than CLB 4">None at all - (Less than CLB 4)</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="listeningLevel" class="form-label">Listening <span class="text-danger">*</span></label><br>
+                <select id="listeningLevel" name="listening" class="form-select" required>
+                    <option value="">Choose</option>
+                    <option value="CLB 10 or more">Expert (CLB 10 or more)</option>
+                    <option value="CLB 9">Very Good (CLB 9)</option>
+                    <option value="CLB 8">Good (CLB 8)</option>
+                    <option value="CLB 7">Competent (CLB 7)</option>
+                    <option value="CLB 6">Modest (CLB 6)</option>
+                    <option value="CLB 5">Limited (CLB 5)</option>
+                    <option value="CLB 4">Very Limited (CLB 4)</option>
+                    <option value="Less than CLB 4">None at All (Less than CLB 4)</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="readingLevel" class="form-label">Reading <span class="text-danger">*</span></label><br>
+                <select id="readingLevel" name="reading" class="form-select" required>
+                    <option value="">Choose</option>
+                    <option value="CLB 10 or more">Expert - (CLB 10 or more)</option>
+                    <option value="CLB 9">Very good - (CLB 9)</option>
+                    <option value="CLB 8">Good - (CLB 8)</option>
+                    <option value="CLB 7">Competent - (CLB 7)</option>
+                    <option value="CLB 6">Modest - (CLB 6)</option>
+                    <option value="CLB 5">Limited - (CLB 5)</option>
+                    <option value="CLB 4">Very Limited - (CLB 4)</option>
+                    <option value="Less than CLB 4">None at all - (Less than CLB 4)</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="writingLevel" class="form-label">Writing <span class="text-danger">*</span></label><br>
+                <select id="writingLevel" name="writing" class="form-select" required>
+                    <option value="" disabled selected>Choose</option>
+                    <option value="CLB 10 or more">Expert (CLB 10 or more)</option>
+                    <option value="CLB 9">Very Good (CLB 9)</option>
+                    <option value="CLB 8">Good (CLB 8)</option>
+                    <option value="CLB 7">Competent (CLB 7)</option>
+                    <option value="CLB 6">Modest (CLB 6)</option>
+                    <option value="CLB 5">Limited (CLB 5)</option>
+                    <option value="CLB 4">Very Limited (CLB 4)</option>
+                    <option value="Less than CLB 4">None at All (Less than CLB 4)</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- --------------------------------- -->
+    <script>
+        function showAdditionalQuestions(select) {
+            var maritalStatus = select.value;
+
+            // Divs for Common-Law or Married
+            var maritalSinceDiv = document.getElementById("maritalSinceDiv");
+            var spouseCitizenDiv = document.getElementById("spouseCitizenDiv");
+            var spouseAccompanyDiv = document.getElementById("spouseAccompanyDiv");
+
+            // Divs for Annulled Marriage, Divorced, Legally Separated, Never Married, Widowed
+            var additionalQuestionsDiv = document.getElementById("additionalQuestions");
+
+            // Divs to Hide/Show for Visiting Canada
+            var visitingQuestionsDiv = document.getElementById("visitingQuestions");
+
+            // Initially hide all divs
+            maritalSinceDiv.style.display = "none";
+            spouseCitizenDiv.style.display = "none";
+            spouseAccompanyDiv.style.display = "none";
+            additionalQuestionsDiv.style.display = "none";
+            visitingQuestionsDiv.style.display = "none";
+
+            if (maritalStatus === "Annulled Marriage" || maritalStatus === "Divorced" || maritalStatus === "Legally Separated" || maritalStatus === "Never Married" || maritalStatus === "Widowed") {
+                // Show additional questions for these marital statuses
+                additionalQuestionsDiv.style.display = "block";
+                visitingQuestionsDiv.style.display = "block";
+            } else if (maritalStatus === "Common-Law" || maritalStatus === "Married") {
+                // Show marital-specific questions for these marital statuses
+                maritalSinceDiv.style.display = "block";
+                spouseCitizenDiv.style.display = "block";
+                spouseAccompanyDiv.style.display = "block";
+            }
+        }
+
+
+
+
+        function hideNativeLanguage() {
+            var primaryLanguage = document.getElementById("primaryLanguage");
+            var nativeLanguageDiv = document.getElementById("native");
+
+            if (primaryLanguage.value === "English" || primaryLanguage.value === "French") {
+                nativeLanguageDiv.style.display = "none";
+            } else {
+                nativeLanguageDiv.style.display = "block";
+            }
+        }
+
+        function howhearAboutUs() {
+            var hearAboutUs = document.getElementById("sourceOfHearing");
+            var referralCode1 = document.getElementById("referralInfoDiv");
+
+            console.log("hearAboutUs: " + hearAboutUs.value);
+            console.log("referralCode1: " + referralCode1);
+
+            if (hearAboutUs.value === "Google" || hearAboutUs.value === "Facebook" || hearAboutUs.value === "LinkedIn" || hearAboutUs.value === "Yahoo" || hearAboutUs.value === "Other") {
+                referralCode1.style.display = "none";
+            } else {
+                referralCode1.style.display = "block";
+            }
+        }
+
+
+        document.getElementById("testAgencySelect").addEventListener("change", function () {
+            var selectedValue = this.value;
+            var languageResultsDiv = document.getElementById("Language_Results");
+
+            if (selectedValue === "Yes") {
+                languageResultsDiv.style.display = "block";
+            } else {
+                languageResultsDiv.style.display = "none";
+            }
+        });
+
+        function toggleLanguageResults() {
+            var selectBox = document.getElementById('languageResultsSelect');
+            var otherLanguageDiv = document.getElementById('Other_Language_Results');
+
+            if (selectBox.value === 'Yes') {
+                otherLanguageDiv.style.display = 'block'; // Show the div
+            } else {
+                otherLanguageDiv.style.display = 'none'; // Hide the div
+            }
+        }
+
+        // -----------------------------------------------------------
+        $(document).ready(function () {
+            $('#testAgencySelect').change(function () {
+                var selectedValue = $(this).val();
+
+                // Clear both divs before appending the new content
+                $('#step_2_input').html('');
+                $('#step_2_ext_input').html('');
+
+                // Check if the #step2_input_step2_extra_input element exists
+                var stepExtraInput = $('#step2_input_step2_extra_input');
+
+                if (stepExtraInput.length === 0) {
+                    console.error('#step2_input_step2_extra_input element not found.');
+                    return;
+                }
+
+                // Clone the element to move it without removing the original
+                var clonedStepExtraInput = stepExtraInput.clone(true);
+                clonedStepExtraInput.show(); // Ensure the cloned content is visible
+
+                // Append content based on selection
+                if (selectedValue === 'Yes') {
+                    $('#step_2_input').append(clonedStepExtraInput);
+                } else if (selectedValue === 'No') {
+                    $('#step_2_ext_input').append(clonedStepExtraInput);
+                }
+            });
+        });
+        // --------------------------------------------
+        function toggleLanguageExam() {
+            var entryStatus = document.getElementById('entryStatus').value;
+            var languageExamContainer = document.getElementById('Language_Exam');
+            
+            if (entryStatus === 'Yes' || entryStatus === 'No') {
+                languageExamContainer.style.display = 'block'; // Show the container
+            } else {
+                languageExamContainer.style.display = 'none'; // Hide the container
+            }
+        }
+        // --------------------------------------
+        // Add More functionality
+        document.getElementById('additionalQuestionsContainer1').addEventListener('click', function (e) {
+            if (e.target && e.target.classList.contains('addMore')) {
+                var container = document.getElementById('additionalQuestionsContainer1');
+                var original = document.querySelector('.additionalQuestions1'); // The original form
+                var clone = original.cloneNode(true); // Deep clone the original block
+
+                // Reset the cloned input values
+                clone.querySelectorAll('input').forEach(input => input.value = '');
+                clone.querySelectorAll('select').forEach(select => select.value = '');
+
+                // Add a remove icon to the cloned form
+                var removeIcon = document.createElement('span');
+                removeIcon.classList.add('remove');
+                removeIcon.innerHTML = '&times;';
+                removeIcon.style.position = 'absolute';
+                removeIcon.style.top = '10px';
+                removeIcon.style.right = '10px';
+                removeIcon.style.cursor = 'pointer';
+                removeIcon.style.fontSize = '20px';
+                removeIcon.style.color = 'red';
+                clone.appendChild(removeIcon);
+
+                // Append the cloned block
+                container.appendChild(clone);
+            }
+
+            // Remove functionality
+            if (e.target && e.target.classList.contains('remove')) {
+                if (confirm('Are you sure you want to delete the Education Details -  Primary Applicant!')) {
+                    var block = e.target.closest('.additionalQuestions1');
+                    block.remove(); // Remove the clicked block
+                }
+            }
+        });
+
+        $(document).ready(function () {
+            $("#step1").show();
+            $("#step2").hide();
+            $("#step3").hide();
+
+            // Step 1 se Step 2 pe jaane ke liye
+            $("#continueToStep2").click(function () {
+                if (validateStep1()) { // Agar validation successful hota hai, to hi Step 2 par jao
+                    $("#step1").hide();
+                    $("#step2").show();
+                }
+            });
+
+            // Step 2 se Step 1 pe wapas aane ke liye
+            $("#previousToStep1").click(function () {
+                $("#step2").hide();
+                $("#step1").show();
+            });
+
+            // Step 2 se Step 3 pe jaane ke liye
+            $("#continueToStep3").click(function () {
+                if (validateStep2()) { // Agar Step 2 valid hai to Step 3 par jaane do
+                    $("#step2").hide();
+                    $("#step3").show();
+                }
+            });
+
+            // Step 3 se Step 2 pe wapas aane ke liye
+            $("#previousToStep2").click(function () {
+                $("#step3").hide();
+                $("#step2").show();
+            });
+
+            // Form submit karne ke liye
+            $("#submitForm").click(function (e) {
+                e.preventDefault(); // Default form submission ko prevent karein
+                if (validateStep1() && validateStep2()) { // Saare steps valid hain to hi form submit karein
+                    $("#waitMessage").show(); // Wait message ko show karein jab tak AJAX request complete nahi hoti
+
+                    // AJAX request to submit the form data
+                    $.ajax({
+                        type: 'POST',
+                        url: $('#customForm').attr('action'),
+                        data: $('#customForm').serialize(),
+                        success: function (response) {
+                            console.log(response);
+                            $("#waitMessage").hide(); // Wait message ko hide karein response aane ke baad
+
+                            // Convert serialized data to an object
+                            let formData = new URLSearchParams($('#customForm').serialize());
+                            // Convert formData to a plain object
+                            let formDataObject = Object.fromEntries(formData.entries());
+
+                            // Convert the formDataObject to JSON
+                            let formDataJson = JSON.stringify(formDataObject, null, 2);
+
+                            console.log("Form Data JSON:", formDataJson);
+                            let firstName = formDataObject['first_name'] || '';
+                            let lastName = formDataObject['last_name'] || '';
+                            let email = formDataObject['email'] || '';
+                            let phone = formDataObject['phone'] || '';
+                            let dateOfBirth = formDataObject['dateOfBirth_new'] || '';
+                            let maritalStatus = formDataObject['maritalStatus'] || '';
+                            let citizenship = formDataObject['citizenshipSelect'] || '';
+                            let primaryLanguage = formDataObject['primaryLanguage'] || '';
+                            let currentAddress = formDataObject['addressCurrent'] || '';
+
+                            // Response check karein
+                            if (response.success) {
+                                $("#successMessage").text(response.data.message).show();
+                                sendData(firstName, lastName, email, phone, dateOfBirth, maritalStatus, citizenship, primaryLanguage, currentAddress); // Call the sendData function here
+                            } else {
+                                alert(response.data.message);
+                            }
+                        },
+                        error: function (error) {
+                            $("#waitMessage").hide(); // Error hone par bhi wait message ko hide karein
+                            alert('Form submission failed. Please try again.');
+                        }
+                    });
+                }
+            });
+
+        });
+
+        function validateStep1() {
+            var first_name = $('#first_name').val();
+            var last_name = $('#last_name').val();
+            var email = $('#email').val();
+            var phone = $('#phone').val();
+            var isValid = true;
+
+            if (first_name === "") {
+                $("#first_nameError").text("First name is required");
+                isValid = false;
+            } else {
+                $("#first_nameError").text("");
+            }
+
+            if (last_name === "") {
+                $("#last_nameError").text("Last name is required");
+                isValid = false;
+            } else {
+                $("#last_nameError").text("");
+            }
+
+            if (email === "") {
+                $("#emailError").text("Email is required");
+                isValid = false;
+            } else {
+                $("#emailError").text("");
+            }
+
+            if (phone === "") {
+                $("#phoneError").text("Phone is required");
+                isValid = false;
+            } else {
+                $("#phoneError").text("");
+            }
+
+            return isValid;
+        }
+
+        function validateStep2() {
+            var citizenship = $('#citizenshipSelect').val();
+            var residence = $('#residenceSelect').val();
+            var address = $('#addressCurrent').val();
+            var primaryLanguage = $('#primaryLanguage').val();
+            var preferredLanguage = $('#preferredLanguage').val();
+            var maritalStatus = $('#maritalStatus').val();
+            var preferredDestination = $('#preferredDestination').val();
+            var previousVisit = $('#previousVisit').val();
+            var firstVisit = $('#firstVisit').val();
+            var entryStatus = $('#entryStatus').val();
+            var testAgencySelect = $('#testAgencySelect').val();
+            // console.log("testAgencySelect"+testAgencySelect);
+
+            var isValid = true;
+
+            // Validate the select field
+            var languageExamVisible = document.getElementById('Language_Exam').style.display === 'block';
+            if (languageExamVisible) {
+                if (testAgencySelect === "") {
+                    // Set error message on the span next to the select element
+                    $('#testAgencySelect_error').text("testAgencySelect is required");
+                    isValid = false;
+                } else {
+                    // Clear error message if value is valid
+                    $('#testAgencySelect_error').text("");
+                }
+            }
+            
+
+            // Salutation Validation
+            if ($('#user-salutation').val() === "") {
+                $('#salutation_Error').text("Salutation is required");
+                isValid = false;
+            } else {
+                $('#salutation_Error').text("");
+            }
+
+            // Family Name Validation
+            if ($('#familyName_new').val() === "") {
+                $('#familyName_error').text("Family Name is required");
+                isValid = false;
+            } else {
+                $('#familyName_error').text("");
+            }
+
+            // Given Name Validation
+            if ($('#givenName_new').val() === "") {
+                $('#givenName_error').text("Given Name is required");
+                isValid = false;
+            } else {
+                $('#givenName_error').text("");
+            }
+
+            // Date of Birth Validation
+            if ($('#dateOfBirth_new').val() === "") {
+                $('#dateOfBirth_error').text("Date of Birth is required");
+                isValid = false;
+            } else {
+                $('#dateOfBirth_error').text("");
+            }
+
+            // Gender Validation
+            if (!$("input[name='genderCategory']:checked").val()) {
+                $('#genderError').text("Gender is required");
+                isValid = false;
+            } else {
+                $('#genderError').text("");
+            }
+
+            if (citizenship === "") {
+                $("#citizenshipSelect_error").text("Country of Citizenship is required");
+                isValid = false;
+            } else {
+                $("#citizenshipSelect_error").text("");
+            }
+
+            if (residence === "") {
+                $("#residenceSelect_error").text("Country of Residence is required");
+                isValid = false;
+            } else {
+                $("#residenceSelect_error").text("");
+            }
+
+            if (address === "") {
+                $("#addressCurrent_error").text("Current Address is required");
+                isValid = false;
+            } else {
+                $("#addressCurrent_error").text("");
+            }
+
+            if (primaryLanguage === "") {
+                $("#primaryLanguage_error").text("Primary Language is required");
+                isValid = false;
+            } else {
+                $("#primaryLanguage_error").text("");
+            }
+
+            if (preferredLanguage === "") {
+                $("#preferredLanguage_error").text("Preferred Language is required");
+                isValid = false;
+            } else {
+                $("#preferredLanguage_error").text("");
+            }
+
+            // Marital Status Validation
+            if (maritalStatus === "Choose") {
+                $("#maritalStatus_error").text("Marital Status is required");
+                isValid = false;
+            } else {
+                $("#maritalStatus_error").text("");
+            }
+
+            // Validate only if maritalStatus is either "Common-Law" or "Married"
+            if (maritalStatus === "Annulled Marriage" || maritalStatus === "Divorced" || maritalStatus === "Legally Separated" || maritalStatus === "Never Married" || maritalStatus === "Widowed") {
+
+                if (preferredDestination === "") {
+                    $("#preferredDestination_error").text("Preferred destination is required");
+                    isValid = false;
+                } else {
+                    $("#preferredDestination_error").text("");
+                }
+
+
+                if (previousVisit === "") {
+                    $("#previousVisit_error").text("This field is required");
+                    isValid = false;
+                } else {
+                    $("#previousVisit_error").text("");
+                }
+
+                if (firstVisit === "") {
+                    $("#firstVisit_error").text("This field is required");
+                    isValid = false;
+                } else {
+                    $("#firstVisit_error").text("");
+                }
+
+                if (entryStatus === "") {
+                    $("#entryStatus_error").text("This field is required");
+                    isValid = false;
+                } else {
+                    $("#entryStatus_error").text("");
+                }
+            } else {
+                // If marital status is "Common-Law" or "Married", check spouseAccompany
+                var spouseAccompany = $('#spouseAccompany').val(); // Assuming this field exists
+                if (spouseAccompany === 'no') {
+                    // Additional Validations when spouseAccompany is 'yes'
+                    if (previousVisit === "") {
+                        $("#previousVisit_error").text("This field is required");
+                        isValid = false;
+                    } else {
+                        $("#previousVisit_error").text("");
+                    }
+
+                    if (firstVisit === "") {
+                        $("#firstVisit_error").text("This field is required");
+                        isValid = false;
+                    } else {
+                        $("#firstVisit_error").text("");
+                    }
+
+                    if (entryStatus === "") {
+                        $("#entryStatus_error").text("This field is required");
+                        isValid = false;
+                    } else {
+                        $("#entryStatus_error").text("");
+                    }
+                    if (preferredDestination === "") {
+                        $("#preferredDestination_error").text("Preferred destination is required");
+                        isValid = false;
+                    } else {
+                        $("#preferredDestination_error").text("");
+                    }
+
+                } else {
+                    // Clear error messages if spouseAccompany is not 'yes'
+                    $("#previousVisit_error").text("");
+                    $("#firstVisit_error").text("");
+                    $("#entryStatus_error").text("");
+                }
+            }
+
+            return isValid;
+
+        }
+
+
+        function spouseAccompanyDiv() {
+            var selectBox = document.getElementById('spouseAccompany').value; // Get the selected value
+            var visitingQuestions = document.getElementById('visitingQuestions');
+            var additionalQuestions = document.getElementById('additionalQuestions'); // Keep as is
+            var Education_Details = document.getElementById('Education_Details');
+
+            // Reset display for all sections
+            if (visitingQuestions) visitingQuestions.style.display = 'none';
+            if (additionalQuestions) additionalQuestions.style.display = 'none';
+            if (Education_Details) Education_Details.style.display = 'none';
+
+            // Show the appropriate div based on the selected value
+            if (selectBox === 'no') {
+                if (additionalQuestions) additionalQuestions.style.display = 'block'; // Show Additional Questions if exists
+                if (visitingQuestions) visitingQuestions.style.display = 'block';   // Show Visiting Questions if exists
+            } else if (selectBox === 'yes') {
+                if (Education_Details) Education_Details.style.display = 'block';   // Show Education Details if exists
+            }
+        }
+
+
+        function sendData(firstName, lastName, email, phone, dateOfBirth, maritalStatus, citizenship, primaryLanguage, currentAddress) {
+            console.log("sendData function is running");
+
+            const url = 'https://apnaorganicstore.in/canjobs/employeePersonal_detail';
+            const data = {
+                "name": firstName + " " + lastName,
+                "email": email,
+                "contact_no": phone,
+                "date_of_birth": dateOfBirth,
+                "marital_status": maritalStatus,
+                "current_location": currentAddress,
+                "currently_located_country": citizenship,
+                "language": primaryLanguage,
+                "interested_in": "Entrepreneur or Investor",
+                "resume": "",
+                "profile_photo": "",
+                "status": "1",
+                "reffer_by": 39,
+                "assigned_by": "1",
+                "permission": "{\"notification_permission\":{\"lmia\":1,\"visa\":1,\"interview\":1,\"job\":1},\"email_permission\":{\"lmia\":1,\"visa\":1,\"interview\":1,\"job\":1}}"
+            };
+            console.log(data);
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json",
+                    type: "event",
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.text())
+                .then(text => {
+                    try {
+                        const jsonData = JSON.parse(text);
+                        console.log('Success:', jsonData);
+                    } catch (error) {
+                        console.error('Error parsing JSON:', error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+    [/custom_form]
